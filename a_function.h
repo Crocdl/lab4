@@ -1,0 +1,21 @@
+//
+// Created by дмитрий on 21.04.2023.
+//
+
+#ifndef LAB4_A_FUNCTION_H
+#define LAB4_A_FUNCTION_H
+//
+// Created by дмитрий on 20.04.2023.
+//
+#include "struct.h"
+#include <stdio.h>
+KeySpace *find_min(const KeySpace *elem);
+KeySpace *find_max(const KeySpace *elem);
+KeySpace *find_prev(KeySpace* elem);
+KeySpace *find_next(KeySpace* elem);
+KeySpace *creat_elem(int key, int value);
+int add(KeySpace **head, int key, int value);
+int output(KeySpace *elem);
+KeySpace *find_elem(KeySpace *elem, int key);
+int delete(KeySpace **head, int key);
+#endif //LAB4_A_FUNCTION_H
