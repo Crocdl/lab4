@@ -116,6 +116,56 @@ KeySpace *find_elem(KeySpace *elem, int key){
     }
     return NULL;
 }
+//int delete(KeySpace **head, int key){
+//    printf("aaa");
+//    if (*head == NULL){
+//        return -1;
+//    }
+//    KeySpace *elem = find_elem(*head, key);
+//    KeySpace *change;
+//    if (elem == NULL){
+//        return -1;
+//    }
+//
+//    if (elem->right == NULL && elem->left==NULL){
+//        KeySpace *next = find_next(elem);
+//        if (next != NULL){
+//            next -> firm = elem -> firm;
+//            printf("key %d", next -> key);
+//        }
+//        if (elem -> perent -> right == elem){
+//            elem -> perent -> right = NULL;
+//        }else{
+//            elem -> perent -> left = NULL;
+//        }
+//        free(elem -> item);
+//        free(elem);
+//        return 0;
+//    }else{
+//        if (elem -> right != NULL){
+//            change = find_min(elem->right);
+//            printf("  %d  ", change -> key);
+//            if (change -> right != NULL){
+//                change -> perent -> left = change -> right;
+//            }
+//        }else{
+//            change = find_max(elem->right);
+//            if (change -> left != NULL){
+//                change -> perent -> right = change -> left;
+//            }
+//        }
+//        change -> right = elem -> right;
+//        change -> left = elem -> left;
+//        if (elem -> perent!= NULL) {
+//            if (elem->perent->left == elem) {
+//                elem->perent->left = change;
+//            } else {
+//                elem->perent->right = change;
+//            }
+//        }
+//    }
+//    return 0;
+//}
 int delete(KeySpace **head, int key){
     if (*head == NULL){
         return -1;
@@ -148,17 +198,18 @@ int delete(KeySpace **head, int key){
         parent -> left = p;
     }else{
         parent -> right = p;
-//           if (p != NULL) {
-//               p->firm = find_prev(p);
-//           }
+           if (p != NULL) {
+               p->firm = find_prev(p);
+           }
     }
     if (y != elem) {
         elem->key = y->key;
         elem->item = y->item;
         elem->firm = y->firm;
-    }else{
+    }
+    else {
         KeySpace *next = find_next(elem);
-        if (next != NULL && elem -> firm != next) {
+        if (next != NULL && elem->firm != next) {
             next->firm = elem->firm;
         }
     }
