@@ -161,4 +161,48 @@ int delete(KeySpace **head, int key){
     }
     return 0;
 }
-
+void end(KeySpace **tree){
+    KeySpace *elem = find_max(*tree);
+    KeySpace *buff = elem;
+    while(elem != NULL){
+        elem = elem -> firm;
+        free(buff->item);
+        free(buff);
+        buff = elem;
+    }
+}
+int getf(KeySpace **tree, FILE *f){
+    int iter, key, value, er;
+    er = fscanf(f,"%d", &iter);
+    if (er < 0){
+        return -1;
+    }
+    fscanf(f, "%*c");
+    for (int i = 0; i < iter; i++){
+        er = 0;
+        er = fscanf(f,"%d", &key);
+        fscanf(f, "%*c");
+        er += fscanf(f,"%d", &value);
+        fscanf(f, "%*c");
+        if (er < 0){
+            return -1;
+        }
+        er = add(tree, key, value);
+        if (er < 0){
+            return er;
+        }
+    }
+    return 0;
+}
+void printtree (KeySpace *tree, int n)  {
+    if (tree-> left) {
+        printtree(tree-> left, n+1);
+    }
+    for (int i = 0; i < n; i++) {
+        printf(" ");
+    }
+    printf("%d\n", tree->key);
+    if (tree->right) {
+        printtree(tree->right, n + 1);
+    }
+}

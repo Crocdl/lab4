@@ -18,4 +18,7 @@ int add(KeySpace **head, int key, int value);
 int output(KeySpace *elem);
 KeySpace *find_elem(KeySpace *elem, int key);
 int delete(KeySpace **head, int key);
+void end(KeySpace **tree);
+int getf(KeySpace **tree, FILE *f);
+void printtree (KeySpace *tree, int n);
 #endif //LAB4_A_FUNCTION_H
