@@ -21,4 +21,5 @@ int delete(KeySpace **head, int key);
 void end(KeySpace **tree);
 int getf(KeySpace **tree, FILE *f);
 void printtree (KeySpace *tree, int n);
+void dprinttree (KeySpace *tree, FILE *f);
 #endif //LAB4_A_FUNCTION_H

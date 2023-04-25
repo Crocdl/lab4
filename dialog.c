@@ -38,6 +38,7 @@ void dialog(){
                 case 4: er = output(tree); break;
                 case 5: er = w_getf(&tree); break;
                 case 6: printtree (tree, 0);  break;
+                case 7: w_dprinttree(tree); break;
                 default: er = -10;
             }
         }else er = 3;

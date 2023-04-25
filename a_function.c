@@ -162,6 +162,9 @@ int delete(KeySpace **head, int key){
     return 0;
 }
 void end(KeySpace **tree){
+    if (*tree == NULL){
+        return;
+    }
     KeySpace *elem = find_max(*tree);
     KeySpace *buff = elem;
     while(elem != NULL){
@@ -204,5 +207,15 @@ void printtree (KeySpace *tree, int n)  {
     printf("%d\n", tree->key);
     if (tree->right) {
         printtree(tree->right, n + 1);
+    }
+}
+void dprinttree (KeySpace *tree, FILE *f)  {
+    if (tree -> right != NULL) {
+        fprintf(f, "\"%d\" -> \"%d\"\n", tree->key, tree->right->key);
+        dprinttree(tree->right, f);
+    }
+    if (tree -> left != NULL) {
+        fprintf(f, "\"%d\" -> \"%d\"\n", tree->key, tree->left->key);
+        dprinttree(tree->left, f);
     }
 }

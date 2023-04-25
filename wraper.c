@@ -72,11 +72,30 @@ int w_getf(KeySpace **tree){
     free(file);
     if (f == NULL){
         perror(NULL);
+        return -1;
     }
     int er = getf(tree, f);
     fclose(f);
     if (er < 0){
         return er;
     }
+    return 0;
+}
+int w_dprinttree(KeySpace *tree){
+    char *file = readstring(stdin);
+    if (file == NULL){
+        free(file);
+        return -1;
+    }
+    FILE *f = fopen(file, "w+");
+    free(file);
+    if (f == NULL){
+        perror(NULL);
+        return -2;
+    }
+    fprintf(f, "digraph HelloWorld {");
+    dprinttree(tree, f);
+    fprintf(f, "}");
+    fclose(f);
     return 0;
 }
