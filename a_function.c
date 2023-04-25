@@ -33,7 +33,7 @@ KeySpace *find_prev(KeySpace* elem){
 }
 KeySpace *find_next(KeySpace* elem){
     if (elem->right != NULL){
-        return find_min(elem);
+        return find_min(elem->right);
     }else{
         KeySpace *iter = elem -> perent;
         KeySpace *iter2 = elem;
@@ -50,6 +50,7 @@ KeySpace *creat_elem(int key, int value){
     info -> value = value;
     elem -> right = NULL;
     elem -> left = NULL;
+    elem -> perent = NULL;
     elem -> firm = NULL;
     elem -> item = info;
     elem -> key = key;
@@ -62,7 +63,7 @@ int add(KeySpace **head, int key, int value){
         return 0;
     }else{
         KeySpace *iter = *head;
-        KeySpace *buff = iter;
+        KeySpace *buff;
         while (iter != NULL){
             buff = iter;
             if (iter -> key == key ){
@@ -85,8 +86,7 @@ int add(KeySpace **head, int key, int value){
         }
         buff = find_next(iter);
         if (buff == NULL){
-            buff = find_prev(iter);
-            iter -> firm = buff;
+            iter -> firm  = find_prev(iter);
             return 0;
         }
         iter -> firm = buff -> firm;
@@ -116,56 +116,6 @@ KeySpace *find_elem(KeySpace *elem, int key){
     }
     return NULL;
 }
-//int delete(KeySpace **head, int key){
-//    printf("aaa");
-//    if (*head == NULL){
-//        return -1;
-//    }
-//    KeySpace *elem = find_elem(*head, key);
-//    KeySpace *change;
-//    if (elem == NULL){
-//        return -1;
-//    }
-//
-//    if (elem->right == NULL && elem->left==NULL){
-//        KeySpace *next = find_next(elem);
-//        if (next != NULL){
-//            next -> firm = elem -> firm;
-//            printf("key %d", next -> key);
-//        }
-//        if (elem -> perent -> right == elem){
-//            elem -> perent -> right = NULL;
-//        }else{
-//            elem -> perent -> left = NULL;
-//        }
-//        free(elem -> item);
-//        free(elem);
-//        return 0;
-//    }else{
-//        if (elem -> right != NULL){
-//            change = find_min(elem->right);
-//            printf("  %d  ", change -> key);
-//            if (change -> right != NULL){
-//                change -> perent -> left = change -> right;
-//            }
-//        }else{
-//            change = find_max(elem->right);
-//            if (change -> left != NULL){
-//                change -> perent -> right = change -> left;
-//            }
-//        }
-//        change -> right = elem -> right;
-//        change -> left = elem -> left;
-//        if (elem -> perent!= NULL) {
-//            if (elem->perent->left == elem) {
-//                elem->perent->left = change;
-//            } else {
-//                elem->perent->right = change;
-//            }
-//        }
-//    }
-//    return 0;
-//}
 int delete(KeySpace **head, int key){
     if (*head == NULL){
         return -1;
@@ -175,7 +125,6 @@ int delete(KeySpace **head, int key){
         return -1;
     }
 //    y - перносимый, р - его дерево, parent - его родитель
-    KeySpace *next = find_next(elem);
     KeySpace *y, *p, *parent;
     if (elem->left == NULL || elem -> right == NULL){
         y = elem;
@@ -198,20 +147,18 @@ int delete(KeySpace **head, int key){
         parent -> left = p;
     }else{
         parent -> right = p;
-           if (p != NULL) {
-               p->firm = find_prev(p);
-           }
     }
     if (y != elem) {
         elem->key = y->key;
         elem->item = y->item;
-        elem->firm = y->firm;
+        KeySpace *next = find_next(elem);
+        next -> firm = elem;
+        free(y);
     }
     else {
-        KeySpace *next = find_next(elem);
-        if (next != NULL && elem->firm != next) {
-            next->firm = elem->firm;
-        }
+    	        KeySpace *next = find_next(y);
+    	        next -> firm = y -> firm;
     }
     return 0;
 }
+
