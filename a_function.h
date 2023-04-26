@@ -15,7 +15,7 @@ KeySpace *find_prev(KeySpace* elem);
 KeySpace *find_next(KeySpace* elem);
 KeySpace *creat_elem(int key, int value);
 int add(KeySpace **head, int key, int value);
-int output(KeySpace *elem);
+int output(KeySpace *elem, int key, int key2);
 KeySpace *find_elem(KeySpace *elem, int key);
 int delete(KeySpace **head, int key);
 void end(KeySpace **tree);

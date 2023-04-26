@@ -50,6 +50,8 @@ int w_find_elem(KeySpace *elem){
     }
     find = creat_elem(find->key, find -> item ->value);
     fprintf(stdout, "key %d -- %d\n", find->key, find->item->value);
+    free(find -> item);
+    free(find);
     return 0;
 }
 
@@ -97,5 +99,28 @@ int w_dprinttree(KeySpace *tree){
     dprinttree(tree, f);
     fprintf(f, "}");
     fclose(f);
+    return 0;
+}
+int w_output(KeySpace *tree){
+    int key, key1;
+    int er = fscanf(stdin, "%d", &key);
+    fscanf(stdin, "%*c");
+    er = fscanf(stdin, "%d", &key1);
+    fscanf(stdin, "%*c");
+    if (er < 0){
+        return -1;
+    }
+    output(tree, key, key1);
+    return 0;
+}
+int w_find_min(KeySpace *tree){
+    KeySpace *find =find_min(tree);
+    if (find == NULL){
+        return -3;
+    }
+    find = creat_elem(find->key, find -> item ->value);
+    fprintf(stdout, "key %d -- %d\n", find->key, find->item->value);
+    free(find -> item);
+    free(find);
     return 0;
 }

@@ -7,6 +7,7 @@
 #include "struct.h"
 #include "wraper.h"
 #include "a_function.h"
+#include <time.h>
 void errore(int er){
     switch (er){
         case 3: fprintf(stdout, "\nERRORE of function's index"); break;
@@ -24,25 +25,30 @@ void dialog(){
     int er = 0;
     int flag = 1;
     int ifunc = 1;
+    clock_t start, stop;
     while (flag){
 
-        printf("\n0 - end\n1 - add\n2 - find elem\n3 - delete\n4 - output\n5 - getf\n");
+        printf("\n0 - end\n1 - add\n2 - find elem\n3 - delete\n4 - output\n5 - getf\n 6 - printTree\n 7 - grafviz\n");
         er = fscanf(stdin, "%d", &ifunc);
         fscanf(stdin, "%*c");
-        if (er >  0 && ifunc >= 0 && ifunc < 8){
+        if (er >  0 && ifunc >= 0 && ifunc < 9){
+            start = clock();
             switch (ifunc) {
                 case 0: flag = 0; break;
                 case 1: er = w_add(&tree); break;
                 case 2: er = w_find_elem(tree); break;
                 case 3: er = w_delete(&tree); break;
-                case 4: er = output(tree); break;
+                case 4: er = w_output(tree); break;
                 case 5: er = w_getf(&tree); break;
                 case 6: printtree (tree, 0);  break;
                 case 7: w_dprinttree(tree); break;
+                case 8: er = w_find_min(tree); break;
                 default: er = -10;
             }
         }else er = 3;
+        stop = clock();
         errore(er);
+        printf("%lf\n", (double)(stop - start) / CLOCKS_PER_SEC);
     }
     end(&tree);
 }

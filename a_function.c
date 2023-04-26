@@ -94,10 +94,12 @@ int add(KeySpace **head, int key, int value){
         return 0;
     }
 }
-int output(KeySpace *tree){
+int output(KeySpace *tree, int key, int key2){
     KeySpace *iter = find_max(tree);
     while (iter != NULL){
-        printf("%d  %d\n", iter -> key, iter -> item -> value);
+        if (iter -> key > key && iter -> key < key2) {
+            printf("%d  %d\n", iter->key, iter->item->value);
+        }
         iter = iter -> firm;
     }
     printf("\n");
@@ -158,6 +160,8 @@ int delete(KeySpace **head, int key){
     else {
     	        KeySpace *next = find_next(y);
     	        next -> firm = y -> firm;
+                free(elem -> item);
+                free(elem);
     }
     return 0;
 }
