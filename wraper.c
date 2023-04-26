@@ -84,13 +84,7 @@ int w_getf(KeySpace **tree){
     return 0;
 }
 int w_dprinttree(KeySpace *tree){
-    char *file = readstring(stdin);
-    if (file == NULL){
-        free(file);
-        return -1;
-    }
-    FILE *f = fopen(file, "w+");
-    free(file);
+    FILE *f = fopen("out", "w+");
     if (f == NULL){
         perror(NULL);
         return -2;
@@ -99,6 +93,9 @@ int w_dprinttree(KeySpace *tree){
     dprinttree(tree, f);
     fprintf(f, "}");
     fclose(f);
+    system("dot -Tpng out -out.png");
+//    system("rm out");
+    system("open out.png");
     return 0;
 }
 int w_output(KeySpace *tree){
