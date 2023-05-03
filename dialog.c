@@ -40,7 +40,7 @@ void dialog(){
                 case 3: er = w_delete(&tree); break;
                 case 4: er = w_output(tree); break;
                 case 5: er = w_getf(&tree); break;
-                case 6: printtree (tree, 0);  break;
+                case 6: iterPreorder(tree);  break;
                 case 7: w_dprinttree(tree); break;
                 case 8: er = w_find_min(tree); break;
                 default: er = -10;

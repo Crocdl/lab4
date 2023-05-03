@@ -223,3 +223,75 @@ void dprinttree (KeySpace *tree, FILE *f)  {
         dprinttree(tree->left, f);
     }
 }
+Stack* createStack() {
+    Stack *tmp = (Stack*) malloc(sizeof(Stack));
+    tmp->limit = STACK_INIT_SIZE;
+    tmp->size = 0;
+    tmp->data = (KeySpace **) malloc(tmp->limit * sizeof(KeySpace *));
+    return tmp;
+}
+
+void freeStack(Stack **s) {
+    free((*s)->data);
+    free(*s);
+    *s = NULL;
+}
+
+void push(Stack *s, KeySpace *item) {
+    if (s->size >= s->limit) {
+        s->limit *= 2;
+        s->data = (KeySpace **) realloc(s->data, s->limit * sizeof(KeySpace *));
+    }
+    s->data[s->size++] = item;
+}
+
+KeySpace * pop(Stack *s) {
+    if (s->size == 0) {
+        exit(7);
+    }
+    s->size--;
+    return s->data[s->size];
+}
+
+KeySpace * peek(Stack *s) {
+    return s->data[s->size-1];
+}
+
+void diterPreorder(KeySpace *tree, FILE *f) {
+    KeySpace *root =tree;
+    Stack *ps = createStack();
+    int k = 0;
+    while (ps->size != 0 || root != NULL) {
+        if (root != NULL) {
+            if (root -> perent)
+            fprintf(f, "\"%d\" -> \"%d\"\n", root -> perent -> key, root->key);
+            if (root->right) {
+                push(ps, root->right);
+            }
+            root = root->left;
+        } else {
+            root = pop(ps);
+        }
+    }
+    freeStack(&ps);
+}
+void iterPreorder(KeySpace *tree) {
+    KeySpace *root =tree;
+    Stack *ps = createStack();
+    int k = 0;
+    while (ps->size != 0 || root != NULL) {
+        if (root != NULL) {
+            for (int i = 0; i < k; i++) {
+                printf("%d\n", root -> key);
+            }
+            if (root->right) {
+                push(ps, root->right);
+            }
+            k++;
+            root = root->left;
+        } else {
+            root = pop(ps);
+        }
+    }
+    freeStack(&ps);
+}

@@ -22,4 +22,6 @@ void end(KeySpace **tree);
 int getf(KeySpace **tree, FILE *f);
 void printtree (KeySpace *tree, int n);
 void dprinttree (KeySpace *tree, FILE *f);
+void diterPreorder(KeySpace *tree, FILE *f);
+void iterPreorder(KeySpace *tree);
 #endif //LAB4_A_FUNCTION_H

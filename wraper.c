@@ -90,12 +90,12 @@ int w_dprinttree(KeySpace *tree){
         return -2;
     }
     fprintf(f, "digraph HelloWorld {");
-    dprinttree(tree, f);
+    diterPreorder(tree, f);
     fprintf(f, "}");
     fclose(f);
     system("dot -Tpng out -out.png");
 //    system("rm out");
-    system("open out.png");
+    system("open ut.png");
     return 0;
 }
 int w_output(KeySpace *tree){
